@@ -66,9 +66,3 @@ WHERE genre_id = ANY (
   SELECT genre_id 
   FROM genre 
   WHERE nom_genre LIKE '%Fiction%');
-
--- 13. Index SQL
-CREATE INDEX idx_titre ON livre (titre);
-
--- 14. SQL CREATE INDEX
-CREATE INDEX idx_date_publication ON livre (date_publication);
