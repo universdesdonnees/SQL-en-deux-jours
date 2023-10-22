@@ -23,7 +23,7 @@ SELECT *
 FROM auteur 
 RIGHT JOIN livre ON auteur.auteur_id = livre.auteur_id;
 
--- 6. SQL FULL JOIN (Note: supporté par PostgreSQL et certains autres SGBD)
+-- 6. SQL FULL JOIN 
 SELECT * 
 FROM livre 
 FULL JOIN genre ON livre.genre_id = genre.genre_id;
@@ -33,7 +33,42 @@ SELECT A.titre AS Livre1, B.titre AS Livre2
 FROM livre A, livre B 
 WHERE A.auteur_id = B.auteur_id AND A.livre_id <> B.livre_id;
 
--- 8. SQL NATURAL JOIN (Note: supporté par PostgreSQL et certains autres SGBD)
+-- 8. SQL NATURAL JOIN 
 SELECT * 
 FROM livre 
 NATURAL JOIN auteur;
+
+-- 9. SQL Sous-requête
+SELECT titre 
+FROM livre 
+WHERE auteur_id IN (SELECT auteur_id FROM auteur WHERE nom = 'Martin');
+
+-- 10. SQL EXISTS
+SELECT titre 
+FROM livre 
+WHERE EXISTS (
+  SELECT 1 
+  FROM genre 
+  WHERE genre.genre_id = livre.genre_id AND nom_genre = 'Fiction');
+
+-- 11. SQL ALL
+SELECT titre 
+FROM livre 
+WHERE date_publication > ALL (
+  SELECT date_publication 
+  FROM livre 
+  WHERE genre_id = 2);
+
+-- 12. SQL ANY / SOME
+SELECT titre 
+FROM livre 
+WHERE genre_id = ANY (
+  SELECT genre_id 
+  FROM genre 
+  WHERE nom_genre LIKE '%Fiction%');
+
+-- 13. Index SQL
+CREATE INDEX idx_titre ON livre (titre);
+
+-- 14. SQL CREATE INDEX
+CREATE INDEX idx_date_publication ON livre (date_publication);
