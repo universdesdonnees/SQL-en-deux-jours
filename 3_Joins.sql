@@ -1,4 +1,5 @@
 -- 1. Jointure SQL
+
 SELECT * 
 FROM livre 
 JOIN auteur ON livre.auteur_id = auteur.auteur_id;
