@@ -123,7 +123,7 @@ EXCEPT
 SELECT titre FROM livre WHERE genre_id = 2;
 
 -- 19. SQL UPDATE
-# Met à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
+-- Met à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
 UPDATE Livre
 SET titre = 'Nineteen Eighty-Four'
 WHERE titre = '1984';
