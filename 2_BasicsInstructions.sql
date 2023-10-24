@@ -128,13 +128,13 @@ UPDATE Livre
 SET titre = 'Nineteen Eighty-Four'
 WHERE titre = '1984';
 
--- 19. SQL ON DUPLICATE KEY UPDATE (Note: spécifique à MySQL)
+-- 20. SQL ON DUPLICATE KEY UPDATE (Note: spécifique à MySQL)
 -- Insère un nouveau livre ou met à jour le titre si le 'livre_id' existe déjà.
 INSERT INTO livre (livre_id, titre) 
 VALUES (1, 'Nouveau Livre')
 ON DUPLICATE KEY UPDATE titre = 'Nouveau Livre';
 
--- 20. SQL MERGE 
+-- 21. SQL MERGE 
 -- Si le 'livre_id' de la source correspond à celui de la cible, 
 -- il met à jour le titre, sinon, il insère un nouveau titre.
 MERGE INTO livre AS target
