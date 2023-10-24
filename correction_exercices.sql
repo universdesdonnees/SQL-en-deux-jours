@@ -1,11 +1,23 @@
+--------------------------------------------------------
+----------- Requetes simples
+--------------------------------------------------------
+
 -- Mettez à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
 UPDATE Livre
 SET titre = 'Nineteen Eighty-Four'
 WHERE titre = '1984';
 
+-- Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
+UPDATE Livre
+SET genre_id = (SELECT genre_id FROM Genre WHERE nom_genre = 'Thriller')
+WHERE genre_id = (SELECT genre_id FROM Genre WHERE nom_genre = 'Horreur');
+
 -- Trouvez le livre le plus ancien de la base de données.
 SELECT titre, MIN(date_publication) as Date_publication_ancienne
-FROM Livre;
+FROM Livre
+GROUP by titre
+ORDER BY Date_publication_ancienne
+LIMIT 1;
 
 -- Trouvez tous les livres qui contiennent le mot "King" dans le titre.
 SELECT titre
@@ -24,10 +36,29 @@ WHERE date_naissance < '1900-01-01';
 
 -- Quel est le nombre de livres publiés chaque année ? 
 -- Classez les résultats par année de publication.
-SELECT date_publication, COUNT(livre_id) as Nombre_de_livres
+SELECT EXTRACT(YEAR FROM date_publication) AS year, COUNT(livre_id) as Nombre_de_livres
 FROM Livre
-GROUP BY date_publication
-ORDER BY date_publication;
+GROUP BY year
+ORDER BY year;
+
+-- Trouvez tous les livres qui n'ont pas été attribués à un genre.
+SELECT titre
+FROM Livre
+WHERE genre_id IS NULL;
+
+-- Combien d'auteurs ont leur anniversaire en janvier?
+SELECT COUNT(auteur_id)
+FROM Auteur
+WHERE  EXTRACT(MONTH FROM date_naissance) = '01';
+
+-- Listez tous les auteurs dont les noms commencent par la lettre 'M'.
+SELECT nom, prenom
+FROM Auteur
+WHERE nom LIKE 'M%';
+
+
+
+--------------------------------------------------------
 
 -- Listez tous les livres écrits par "George Orwell".
 SELECT titre
@@ -53,7 +84,6 @@ GROUP BY nom_genre
 ORDER BY Nombre_de_livres DESC
 LIMIT 1;
 
-
 -- Quels auteurs ont écrit plus d'un livre sur la "Fiction"?
 SELECT nom, prenom
 FROM Auteur
@@ -72,7 +102,6 @@ WHERE nom_genre IN ('Fiction', 'Science-fiction')
 GROUP BY Livre.auteur_id
 HAVING COUNT(DISTINCT nom_genre) = 2;
 
-
 -- Listez tous les livres qui ont été publiés la même année que "The Great Gatsby".
 SELECT titre
 FROM Livre
@@ -90,30 +119,6 @@ FROM (
     FROM Livre
     GROUP BY auteur_id
 ) AS SousTable;
-
-
-
-
-
--- Combien d'auteurs ont leur anniversaire en janvier?
-SELECT COUNT(auteur_id)
-FROM Auteur
-WHERE strftime('%m', date_naissance) = '01';
-
--- Trouvez tous les livres qui n'ont pas été attribués à un genre.
-SELECT titre
-FROM Livre
-WHERE genre_id IS NULL;
-
--- Listez tous les auteurs dont les noms commencent par la lettre 'M'.
-SELECT nom, prenom
-FROM Auteur
-WHERE nom LIKE 'M%';
-
--- Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
-UPDATE Livre
-SET genre_id = (SELECT genre_id FROM Genre WHERE nom_genre = 'Thriller')
-WHERE genre_id = (SELECT genre_id FROM Genre WHERE nom_genre = 'Horreur');
 
 -- Quels sont les trois genres les moins courants dans la base de données?
 SELECT nom_genre, COUNT(livre_id) as Nombre_de_livres
