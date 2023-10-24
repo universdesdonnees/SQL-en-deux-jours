@@ -122,6 +122,12 @@ SELECT titre FROM livre WHERE auteur_id = 1
 EXCEPT
 SELECT titre FROM livre WHERE genre_id = 2;
 
+-- 19. SQL UPDATE
+# Met à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
+UPDATE Livre
+SET titre = 'Nineteen Eighty-Four'
+WHERE titre = '1984';
+
 -- 19. SQL ON DUPLICATE KEY UPDATE (Note: spécifique à MySQL)
 -- Insère un nouveau livre ou met à jour le titre si le 'livre_id' existe déjà.
 INSERT INTO livre (livre_id, titre) 
