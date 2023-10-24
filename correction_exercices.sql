@@ -1,3 +1,8 @@
+-- Mettez à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
+UPDATE Livre
+SET titre = 'Nineteen Eighty-Four'
+WHERE titre = '1984';
+
 -- Trouvez le livre le plus ancien de la base de données.
 SELECT titre, MIN(date_publication) as Date_publication_ancienne
 FROM Livre;
@@ -17,14 +22,12 @@ SELECT nom, prenom
 FROM Auteur
 WHERE date_naissance < '1900-01-01';
 
--- Mettez à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
-UPDATE Livre
-SET titre = 'Nineteen Eighty-Four'
-WHERE titre = '1984';
-
-
-
-
+-- Quel est le nombre de livres publiés chaque année ? 
+-- Classez les résultats par année de publication.
+SELECT date_publication, COUNT(livre_id) as Nombre_de_livres
+FROM Livre
+GROUP BY date_publication
+ORDER BY date_publication;
 
 -- Listez tous les livres écrits par "George Orwell".
 SELECT titre
@@ -40,6 +43,15 @@ JOIN Genre ON Livre.genre_id = Genre.genre_id
 GROUP BY nom_genre
 ORDER BY Nombre_de_livres DESC;
 
+-- Quel est le genre le plus courant parmi les livres écrits par "J.K. Rowling"?
+SELECT nom_genre, COUNT(livre_id) as Nombre_de_livres
+FROM Livre
+JOIN Genre ON Livre.genre_id = Genre.genre_id
+JOIN Auteur ON Livre.auteur_id = Auteur.auteur_id
+WHERE Auteur.nom = 'Rowling' AND Auteur.prenom = 'J.K.'
+GROUP BY nom_genre
+ORDER BY Nombre_de_livres DESC
+LIMIT 1;
 
 
 -- Quels auteurs ont écrit plus d'un livre sur la "Fiction"?
@@ -51,12 +63,20 @@ WHERE Genre.nom_genre = 'Fiction'
 GROUP BY Livre.auteur_id
 HAVING COUNT(livre_id) > 1;
 
+-- Listez les auteurs qui ont écrit à la fois de la "Fiction" et de la "Science-fiction".
+SELECT nom, prenom
+FROM Auteur
+JOIN Livre ON Auteur.auteur_id = Livre.auteur_id
+JOIN Genre ON Livre.genre_id = Genre.genre_id
+WHERE nom_genre IN ('Fiction', 'Science-fiction')
+GROUP BY Livre.auteur_id
+HAVING COUNT(DISTINCT nom_genre) = 2;
+
+
 -- Listez tous les livres qui ont été publiés la même année que "The Great Gatsby".
 SELECT titre
 FROM Livre
 WHERE date_publication = (SELECT date_publication FROM Livre WHERE titre = 'The Great Gatsby');
-
-
 
 -- Listez tous les auteurs qui n'ont pas encore écrit de livres (basé sur les données actuelles).
 SELECT nom, prenom
@@ -71,32 +91,9 @@ FROM (
     GROUP BY auteur_id
 ) AS SousTable;
 
--- Quel est le genre le plus courant parmi les livres écrits par "J.K. Rowling"?
-SELECT nom_genre, COUNT(livre_id) as Nombre_de_livres
-FROM Livre
-JOIN Genre ON Livre.genre_id = Genre.genre_id
-JOIN Auteur ON Livre.auteur_id = Auteur.auteur_id
-WHERE Auteur.nom = 'Rowling' AND Auteur.prenom = 'J.K.'
-GROUP BY nom_genre
-ORDER BY Nombre_de_livres DESC
-LIMIT 1;
 
 
 
--- Listez les auteurs qui ont écrit à la fois de la "Fiction" et de la "Science-fiction".
-SELECT nom, prenom
-FROM Auteur
-JOIN Livre ON Auteur.auteur_id = Livre.auteur_id
-JOIN Genre ON Livre.genre_id = Genre.genre_id
-WHERE nom_genre IN ('Fiction', 'Science-fiction')
-GROUP BY Livre.auteur_id
-HAVING COUNT(DISTINCT nom_genre) = 2;
-
--- Quel est le nombre de livres publiés chaque année ? Classez les résultats par année de publication.
-SELECT date_publication, COUNT(livre_id) as Nombre_de_livres
-FROM Livre
-GROUP BY date_publication
-ORDER BY date_publication;
 
 -- Combien d'auteurs ont leur anniversaire en janvier?
 SELECT COUNT(auteur_id)
