@@ -2,11 +2,6 @@
 ----------- Requetes simples
 --------------------------------------------------------
 
--- Mettez à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
-UPDATE Livre
-SET titre = 'Nineteen Eighty-Four'
-WHERE titre = '1984';
-
 -- Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
 UPDATE Livre
 SET genre_id = (SELECT genre_id FROM Genre WHERE nom_genre = 'Thriller')
