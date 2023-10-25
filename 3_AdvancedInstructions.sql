@@ -64,3 +64,18 @@ WHERE genre_id = ANY (
   SELECT genre_id 
   FROM genre 
   WHERE nom_genre LIKE '%Fiction%');
+
+-- 12 SQL View
+CREATE VIEW vue_livres_auteurs_genre AS
+SELECT 
+    l.titre AS Titre_Livre,
+    a.nom AS Nom_Auteur,
+    a.prenom AS Prenom_Auteur,
+    g.nom_genre AS Genre_Livre
+FROM 
+    Livre l
+JOIN 
+    Auteur a ON l.auteur_id = a.auteur_id
+JOIN 
+    Genre g ON l.genre_id = g.genre_id;
+
