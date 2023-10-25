@@ -52,7 +52,7 @@ FROM Auteur
 WHERE nom LIKE 'M%';
 
 -- Quelles années ont vu la publication de plus de 2 livres ?
-SELECT EXTRACT(YEAR FROM date_publication AS Annee_Publication
+SELECT EXTRACT(YEAR FROM date_publication) AS Annee_Publication
 FROM Livre
 GROUP BY Annee_Publication
 HAVING COUNT(livre_id) > 2;
