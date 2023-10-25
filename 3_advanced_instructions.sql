@@ -1,5 +1,4 @@
 -- 1. Jointure SQL
-
 SELECT * 
 FROM livre 
 JOIN auteur ON livre.auteur_id = auteur.auteur_id;
@@ -34,17 +33,15 @@ SELECT A.titre AS Livre1, B.titre AS Livre2
 FROM livre A, livre B 
 WHERE A.auteur_id = B.auteur_id AND A.livre_id <> B.livre_id;
 
--- 8. SQL NATURAL JOIN 
-SELECT * 
-FROM livre 
-NATURAL JOIN auteur;
-
--- 9. SQL Sous-requête
+-- 8. SQL Sous-requête
 SELECT titre 
 FROM livre 
-WHERE auteur_id IN (SELECT auteur_id FROM auteur WHERE nom = 'Martin');
+WHERE auteur_id IN (
+  SELECT auteur_id 
+  FROM auteur 
+  WHERE nom = 'Martin');
 
--- 10. SQL EXISTS
+-- 9. SQL EXISTS
 SELECT titre 
 FROM livre 
 WHERE EXISTS (
@@ -52,7 +49,7 @@ WHERE EXISTS (
   FROM genre 
   WHERE genre.genre_id = livre.genre_id AND nom_genre = 'Fiction');
 
--- 11. SQL ALL
+-- 10. SQL ALL
 SELECT titre 
 FROM livre 
 WHERE date_publication > ALL (
@@ -60,7 +57,7 @@ WHERE date_publication > ALL (
   FROM livre 
   WHERE genre_id = 2);
 
--- 12. SQL ANY / SOME
+-- 11. SQL ANY / SOME
 SELECT titre 
 FROM livre 
 WHERE genre_id = ANY (
