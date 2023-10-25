@@ -132,7 +132,8 @@ WHERE titre = '1984';
 -- Insère un nouveau livre ou met à jour le titre si le 'livre_id' existe déjà.
 INSERT INTO livre (livre_id, titre) 
 VALUES (1, 'Nouveau Livre')
-ON DUPLICATE KEY UPDATE titre = 'Nouveau Livre';
+ON CONFLICT (livre_id)
+DO UPDATE SET titre = 'Nouveau Livre';
 
 -- 21. SQL MERGE 
 -- Si le 'livre_id' de la source correspond à celui de la cible, 
