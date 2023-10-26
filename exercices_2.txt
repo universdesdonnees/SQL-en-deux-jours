@@ -1,0 +1,11 @@
+•	Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
+•	Trouvez le livre le plus ancien de la base de données.
+•	Trouvez tous les livres qui contiennent le mot "King" dans le titre.
+•	Combien de livres ont été publiés après l'an 2000 ?
+•	Nommez tous les auteurs nés avant 1900.
+•	Quel est le nombre de livres publiés chaque année ? Classez les résultats par année de publication. Aide : EXTRACT(YEAR FROM date_publication) AS year
+•	Classez les résultats par année de publication.
+•	Trouvez tous les livres qui n'ont pas été attribués à un genre.
+•	Combien d'auteurs ont leur anniversaire en janvier?
+•	Listez tous les auteurs dont les noms commencent par la lettre 'M'.
+•	Quelles années ont vu la publication de plus de 2 livres ?
