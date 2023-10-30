@@ -1,3 +1,67 @@
+-- 14. SQL CASE
+-- Cette commande ajoute une nouvelle colonne 'Epoque' basée sur la date de publication des livres.
+SELECT titre, CASE 
+    WHEN date_publication < '2000-01-01' THEN '20ème siècle'
+    ELSE '21ème siècle'
+END AS Epoque 
+FROM livre;
+
+-- 15. SQL UNION
+-- Cette commande combine les résultats des titres des livres et des noms des genres en une seule liste.
+SELECT titre 
+FROM livre
+UNION
+SELECT nom_genre AS titre 
+FROM genre;
+
+-- 16. SQL UNION ALL
+-- Semblable à UNION, mais conserve les doublons.
+SELECT titre 
+FROM livre
+UNION ALL
+SELECT nom_genre AS titre 
+FROM genre;
+
+-- 17. SQL INTERSECT 
+-- Cette commande retourne les titres des livres écrits par l'auteur avec l'id 1 qui sont également de genre_id 2.
+SELECT titre FROM livre WHERE auteur_id = 1
+INTERSECT
+SELECT titre FROM livre WHERE genre_id = 2;
+
+-- 18. SQL EXCEPT 
+-- Cette commande retourne les titres des livres écrits par l'auteur avec l'id 1 mais qui ne sont pas du genre_id 2.
+SELECT titre FROM livre WHERE auteur_id = 1
+EXCEPT
+SELECT titre FROM livre WHERE genre_id = 2;
+
+-- 19. SQL UPDATE
+-- Met à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
+UPDATE Livre
+SET titre = 'Nineteen Eighty-Four'
+WHERE titre = '1984';
+
+-- 20. SQL ON DUPLICATE KEY UPDATE (Note: spécifique à MySQL)
+-- Insère un nouveau livre ou met à jour le titre si le 'livre_id' existe déjà.
+INSERT INTO livre (livre_id, titre) 
+VALUES (1, 'Nouveau Livre')
+ON CONFLICT (livre_id)
+DO UPDATE SET titre = 'Nouveau Livre';
+
+-- 21. SQL MERGE 
+-- Si le 'livre_id' de la source correspond à celui de la cible, 
+-- il met à jour le titre, sinon, il insère un nouveau titre.
+MERGE INTO livre AS target
+USING (
+  SELECT livre_id, titre 
+  FROM livre 
+  WHERE livre_id = 1) AS source
+ON (target.livre_id = source.livre_id)
+WHEN MATCHED THEN 
+   UPDATE SET titre = source.titre
+WHEN NOT MATCHED THEN 
+  INSERT (titre) VALUES (source.titre);
+
+
 -- 1. Jointure SQL
 SELECT * 
 FROM livre 
