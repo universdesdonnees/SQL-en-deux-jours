@@ -1,11 +1,11 @@
--- 20. SQL ON DUPLICATE KEY UPDATE (Note: spécifique à MySQL)
+-- 1. SQL ON DUPLICATE KEY UPDATE (Note: spécifique à MySQL)
 -- Insère un nouveau livre ou met à jour le titre si le 'livre_id' existe déjà.
 INSERT INTO livre (livre_id, titre) 
 VALUES (1, 'Nouveau Livre')
 ON CONFLICT (livre_id)
 DO UPDATE SET titre = 'Nouveau Livre';
 
--- 21. SQL MERGE 
+-- 2. SQL MERGE 
 -- Si le 'livre_id' de la source correspond à celui de la cible, 
 -- il met à jour le titre, sinon, il insère un nouveau titre.
 MERGE INTO livre AS target
@@ -19,9 +19,7 @@ WHEN MATCHED THEN
 WHEN NOT MATCHED THEN 
   INSERT (titre) VALUES (source.titre);
 
-
-
--- 15. SQL UNION
+-- 3. SQL UNION
 -- Cette commande combine les résultats des titres des livres et des noms des genres en une seule liste.
 SELECT titre 
 FROM livre
@@ -29,7 +27,7 @@ UNION
 SELECT nom_genre AS titre 
 FROM genre;
 
--- 16. SQL UNION ALL
+-- 4. SQL UNION ALL
 -- Semblable à UNION, mais conserve les doublons.
 SELECT titre 
 FROM livre
@@ -37,7 +35,7 @@ UNION ALL
 SELECT nom_genre AS titre 
 FROM genre;
 
--- 17. SQL INTERSECT 
+-- 5. SQL INTERSECT 
 -- Cette commande retourne les titres des livres écrits par l'auteur avec l'id 1 qui sont également de genre_id 2.
 SELECT titre FROM livre WHERE auteur_id = 1
 INTERSECT
