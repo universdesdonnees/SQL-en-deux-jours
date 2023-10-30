@@ -1,3 +1,4 @@
+--- Exercices bibliothèque 
 •	Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
 •	Trouvez le livre le plus ancien de la base de données.
 •	Trouvez tous les livres qui contiennent le mot "King" dans le titre.
@@ -9,3 +10,4 @@
 •	Combien d'auteurs ont leur anniversaire en janvier?
 •	Listez tous les auteurs dont les noms commencent par la lettre 'M'.
 •	Quelles années ont vu la publication de plus de 2 livres ?
+
