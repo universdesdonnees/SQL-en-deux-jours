@@ -56,7 +56,9 @@ SELECT titre, CASE
 END AS Epoque 
 FROM livre;
 
-
+-- 
+-- Les jointures 
+-- 
 
 -- 1. Jointure SQL
 SELECT * 
