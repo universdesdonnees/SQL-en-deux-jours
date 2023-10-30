@@ -86,4 +86,10 @@ SELECT *
 FROM livre
 LIMIT 5;
 
+-- 14. SQL UPDATE
+-- Met à jour le titre du livre "1984" pour qu'il soit "Nineteen Eighty-Four".
+UPDATE Livre
+SET titre = 'Nineteen Eighty-Four'
+WHERE titre = '1984';
+
 
