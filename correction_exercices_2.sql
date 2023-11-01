@@ -1,5 +1,5 @@
 -----
------ Schéma HR :  Table Empl
+----- Schéma HR 
 ----- Tables : EmployeeDemographics et EmployeeSalary
 -----
 
