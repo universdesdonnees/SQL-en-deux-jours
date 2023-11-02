@@ -1,1 +1,65 @@
+-- Manipulation de Texte : 
+UPPER(), LOWER(), INITCAP(), SUBSTRING(), POSITION(), et CHAR_LENGTH()
 
+Écrivez une requête pour afficher le nom complet de chaque auteur en combinant leurs prénoms et noms.
+Convertissez tous les noms de genres dans la table Genre en majuscules.
+Convertissez tous les prénoms d'auteurs dans la table Auteur en minuscules.
+Assurez-vous que chaque mot dans le titre d'un livre commence par une majuscule.
+Trouvez la première lettre du prénom de chaque auteur.
+Extraire les trois premiers caractères de chaque nom de genre.
+Trouvez la position du mot "The" dans tous les titres de livres.
+Calculez la longueur de chaque titre de livre.
+
+-- Manipulation de Dates
+CURRENT_DATE, AGE(), DATE_PART(), INTERVAL, DATE_TRUNC()
+Trouvez tous les auteurs qui sont nés après 1900.
+Calculez l'âge actuel de chaque auteur en utilisant leur date_naissance. (en partant du principe qu'ils sont toujours vivant)
+Extraire le mois de naissance pour chaque auteur.
+Affichez la date à laquelle chaque livre aura 10 ans
+Group by la table Livre par mois de publication et comptez le nombre de livres publiés chaque mois.
+Affichez l'année de publication pour chaque livre.
+Pour chaque livre, calculez le nombre de jours entre la date de publication du livre et la date de naissance de l'auteur.
+
+-- CTE
+
+À l'aide d'une CTE, comptez le nombre de livres publiés chaque décennies. 
+Ensuite, dans la requête principale, sélectionnez seulement les décennies où plus de 10 livres ont été publiés.
+Aide : (annee / 10) * 10 AS decennie
+
+Créez une CTE qui compte le nombre de livres écrits par chaque auteur. 
+Dans votre requête principale, sélectionnez les auteurs qui ont écrit plus de 3 livres.
+
+Créez une CTE qui calcule la moyenne du nombre de livres écrits par auteur. 
+Dans la requête principale, listez tous les auteurs qui ont écrit plus que cette moyenne.
+
+Utilisez une CTE pour calculer le salaire moyen pour chaque poste.
+Dans la requête principale, listez tous les poste où le salaire moyen est supérieur à 50 000.
+
+À l'aide d'une CTE, identifiez tous les auteurs qui ont publié des livres après 2000. Dans la requête principale, 
+sélectionnez tous les auteurs qui ne figurent pas dans cette CTE, c'est-à-dire ceux qui n'ont pas publié de livre en 2000.
+
+-- OVER PARTITION
+
+À partir de la table Livre, classez les livres par date de publication en utilisant la fonction ROW_NUMBER() avec OVER().
+
+Dans la table Livre, pour chaque genre, classez les livres par date de publication en utilisant la fonction RANK() avec OVER().
+
+À partir de la table EmployeeSalary du schéma RH, calculez le salaire cumulé 
+pour chaque employé, trié par EmployeeID, en utilisant la fonction SUM() avec OVER().
+
+Toujours dans la table EmployeeSalary, calculez la moyenne du salaire des 3 derniers employés 
+(y compris l'employé actuel) pour chaque entrée, en utilisant la fonction AVG() avec OVER().
+
+Pour la table Livre, pour chaque genre, trouvez le premier et le dernier livre 
+publié en utilisant les fonctions FIRST_VALUE() et LAST_VALUE() avec OVER().
+
+Dans la table EmployeeSalary, comparez le salaire de chaque employé avec celui de l'employé précédent en utilisant la fonction LAG() avec OVER().
+
+Toujours dans la table EmployeeSalary, calculez la différence de salaire entre chaque employé et l'employé précédent en utilisant les fonctions LAG() et LEAD() avec OVER().
+
+À partir de la table EmployeeSalary, calculez le pourcentage que représente le salaire de chaque employé par rapport au salaire
+total de tous les employés, en utilisant la fonction SUM() avec OVER().
+
+Créez une CTE qui calcule le nombre de livres publiés chaque année. 
+Dans la requête principale, utilisez la fonction LAG() 
+pour afficher le pourcentage de croissance des publications d'une année à l'autre.
