@@ -104,6 +104,29 @@ SELECT
 FROM employeesalary
 GROUP BY salary_label
 
+-- Combien d'hommes et de femmes tombent dans chaque 
+-- classification de salaire ('Bas', 'Moyen', 'Haut'). 
+SELECT d.gender,
+ 	CASE 
+        WHEN salary < 40000 THEN 'bas'
+        WHEN salary BETWEEN 40000 AND 55000 THEN 'moyen'
+        ELSE 'haut' 
+    END AS salary_label, 
+    count(*) as salary_count
+from employeesalary as s
+INNER join employeedemographics as d
+on s.employeeid = d.employeeid
+GROUP by gender, salary_label;
+
+-- Trouvez le salaire moyen des hommes et des femmes.
+--salaire, genre 
+
+SELECT d.gender, ROUND(avg(salary), 2) as avg_salary
+from employeedemographics d 
+INNER join employeesalary s 
+on d.employeeid = s.employeeid
+GROUP by d.gender
+
 -----
 ----- Schéma Bibliothèque 
 ----- Tables : livre, auteur, genre 
