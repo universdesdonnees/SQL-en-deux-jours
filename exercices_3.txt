@@ -60,6 +60,10 @@ Toujours dans la table EmployeeSalary, calculez la différence de salaire entre 
 À partir de la table EmployeeSalary, calculez le pourcentage que représente le salaire de chaque employé par rapport au salaire
 total de tous les employés, en utilisant la fonction SUM() avec OVER().
 
+Sélectionnez le nom, le prénom, la date de naissance et le titre de chaque livre.
+Calculez pour chaque livre le nombre de livres que l'auteur avait déjà publiés avant ce livre. Nommez cette colonne nbr_livres_avant.
+Triez les résultats par date de publication.
+
 Créez une CTE qui calcule le nombre de livres publiés chaque année. 
 Dans la requête principale, utilisez la fonction LAG() 
 pour afficher le pourcentage de croissance des publications d'une année à l'autre.
