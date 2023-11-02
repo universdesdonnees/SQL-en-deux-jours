@@ -19,4 +19,9 @@
 •	Listez tous les auteurs qui n'ont pas encore écrit de livres (basé sur les données actuelles).
 •	Quel est le nombre moyen de livres par auteur ?
 •	Quels sont les trois genres les moins courants dans la base de données?
-•	Pour chaque auteur, trouvez le genre dans lequel ils ont écrit le plus de livres. Si un auteur a écrit le même nombre de livres dans plusieurs genres, listez tous ces genres.
+•	Pour chaque auteur, trouvez le genre dans lequel ils ont écrit le plus de livres. 
+Si un auteur a écrit le même nombre de livres dans plusieurs genres, listez tous ces genres.
+-- La CTE GenreCount compte le nombre de livres écrits par chaque auteur pour chaque genre.
+-- La CTE MaxGenreCount identifie le nombre maximum de livres écrits par chaque auteur dans un genre.
+-- La requête principale joint les deux CTE pour lister les genres où chaque auteur a écrit le plus de livres.
+
