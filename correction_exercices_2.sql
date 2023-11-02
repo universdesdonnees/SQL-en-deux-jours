@@ -3,7 +3,7 @@
 ----- Tables : EmployeeDemographics et EmployeeSalary
 -----
 
---	Listez tous les noms d'employés qui ont le poste "Salesman"
+-- Listez tous les noms d'employés qui ont le poste "Salesman"
 -- et qui ont plus de 30 ans.
 
 SELECT employeesalary.jobtitle, employeedemographics.age, employeedemographics.firstname
@@ -13,13 +13,14 @@ ON employeesalary.employeeid = employeedemographics.employeeid
 WHERE employeedemographics.age > 30 and employeesalary.jobtitle = 'Salesman'
 	
  -- Identique à la requete précédente, utilisation des alias 'AS'
+	
 SELECT d.firstname, s.jobtitle, d.age
 FROM employeedemographics AS d 
 INNER JOIN employeesalary AS s 
 ON d.employeeid = s.employeeid
 WHERE s.jobtitle = 'Salesman' and d.age > 30;
 
--- 	Trouvez les employés ayant un salaire supérieur 
+-- Trouvez les employés ayant un salaire supérieur 
 -- à la moyenne, mais qui ont moins de 32 ans.
 
 SELECT d.firstname, d.lastname, d.age
@@ -31,9 +32,9 @@ WHERE salary > (
   FROM employeesalary
 ) AND d.age < 32;
 
-  
 -- Listez tous les employés qui sont soit "Salesman", soit "Accountant"
 -- lastname, jobtitle 
+
 select d.lastname, s.jobtitle
 from employeedemographics as d 
 INNER join employeesalary as s
@@ -49,8 +50,8 @@ INNER join employeesalary as s
 on d.employeeid = s.employeeid
 WHERE s.jobtitle != 'HR' and d.age < 35;
 
---	Identifiez les employés qui ont le même salaire que 'Pam Beasley'.
---lastname, salaire 
+-- Identifiez les employés qui ont le même salaire que 'Pam Beasley'. 3 requetes possibles 
+-- 1 
 SELECT d.lastname, d.firstname, s.salary
 from employeedemographics as d 
 INNER JOIN employeesalary as s
@@ -63,7 +64,7 @@ Where s.salary = (
     	from employeedemographics
     	where lastname = 'Beasley' AND firstname = 'Pam')) and 
 lastname != 'Beasley';
-
+-- 2 
 SELECT d.lastname, d.firstname, s.salary
 from employeedemographics as d 
 INNER JOIN employeesalary as s
@@ -75,7 +76,7 @@ Where s.salary = (
   on se.employeeid = de.employeeid
   WHERE lastname = 'Beasley'
   	);	
-    
+-- 3
  select ge.lastname, ge.firstname, ge.salary
  from (
    SELECT d.employeeid, d.lastname, d.firstname, s.salary
@@ -92,6 +93,7 @@ Where s.salary = (
  -- 'Moyen' pour les salaires entre 40 000 et 55 000 et 
  -- 'Haut' pour les salaires supérieurs à 55 000
  -- Compter le nombre de catégories de salaires
+	 
 SELECT  
     CASE 
         WHEN salary < 40000 THEN 'bas'
