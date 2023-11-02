@@ -22,7 +22,7 @@ sélectionnez tous les auteurs qui ne figurent pas dans cette CTE, c'est-à-dire
 
 Dans la table Livre, pour chaque genre, classez les livres par date de publication en utilisant la fonction RANK() avec OVER().
 
-À partir de la table EmployeeSalary du schéma RH, calculez le salaire cumulé 
+À partir de la table EmployeeSalary, calculez le salaire cumulé 
 pour chaque employé, trié par EmployeeID, en utilisant la fonction SUM() avec OVER().
 
 Toujours dans la table EmployeeSalary, calculez la moyenne du salaire des 3 derniers employés 
@@ -31,9 +31,8 @@ Toujours dans la table EmployeeSalary, calculez la moyenne du salaire des 3 dern
 Pour la table Livre, pour chaque genre, trouvez le premier et le dernier livre 
 publié en utilisant les fonctions FIRST_VALUE() et LAST_VALUE() avec OVER().
 
-Dans la table EmployeeSalary, comparez le salaire de chaque employé avec celui de l'employé précédent en utilisant la fonction LAG() avec OVER().
-
-Toujours dans la table EmployeeSalary, calculez la différence de salaire entre chaque employé et l'employé précédent en utilisant les fonctions LAG() et LEAD() avec OVER().
+Dans la table EmployeeSalary, calculez la différence de salaire entre chaque employé et 
+l'employé précédent en utilisant les fonctions LAG() et LEAD() avec OVER().
 
 À partir de la table EmployeeSalary, calculez le pourcentage que représente le salaire de chaque employé par rapport au salaire
 total de tous les employés, en utilisant la fonction SUM() avec OVER().
