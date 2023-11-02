@@ -105,7 +105,7 @@ FROM employeesalary
 GROUP BY salary_label
 
 -----
------ Schéma Bibliothèque :  Table Empl
+----- Schéma Bibliothèque 
 ----- Tables : livre, auteur, genre 
 -----
 
