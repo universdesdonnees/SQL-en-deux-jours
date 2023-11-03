@@ -1,4 +1,4 @@
--- 1. SQL ON DUPLICATE KEY UPDATE (Note: spécifique à MySQL)
+-- 1. SQL ON DUPLICATE KEY 
 -- Insère un nouveau livre ou met à jour le titre si le 'livre_id' existe déjà.
 INSERT INTO livre (livre_id, titre) 
 VALUES (1, 'Nouveau Livre')
