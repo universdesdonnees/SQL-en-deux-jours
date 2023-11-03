@@ -57,6 +57,7 @@ WHERE titre LIKE '%Game%';
 
 -- 9. SQL IS NULL / IS NOT NULL
 -- Cette commande récupère les livres qui n'ont pas de date de publication.
+-- Ne renvoie pas de résultat car tous les livres ont une date de publication
 SELECT * 
 FROM livre 
 WHERE date_publication ISNULL;
