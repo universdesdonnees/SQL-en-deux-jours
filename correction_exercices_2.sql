@@ -138,20 +138,44 @@ GROUP by d.gender
 -----
 
 -- Listez tous les livres écrits par "George Orwell".
-SELECT auteur.prenom || ' ' || auteur.nom AS auteur_identite, livre.titre
-FROM auteur 
-JOIN livre ON auteur.auteur_id = livre.auteur_id
-WHERE auteur.prenom || ' ' || auteur.nom = 'George Orwell';
+SELECT livre.titre
+FROM livre
+FULL JOIN auteur
+USING (auteur_id)
+WHERE prenom ||' '|| nom = 'George Orwell';
 
 -- Quels sont les genres les plus populaires (en termes de nombre de livres) ?  
 -- Classez-les par ordre décroissant.
-SELECT genre.nom_genre, count(livre.genre_id) nombre_livres
-from livre
-left JOIN genre on livre.genre_id = genre.genre_id
-GROUP by livre.genre_id, genre.genre_id
-ORDER BY nombre_livres DESC;
+SELECT ge.nom_genre, COUNT(*) as nb_livre
+FROM genre ge
+FULL JOIN livre USING(genre_id)
+GROUP by ge.nom_genre
+ORDER by nb_livre desc
+	
+-- Quel est le genre le plus courant parmi les livres écrits par "J.K. Rowling"?
+SELECT ge.nom_genre, COUNT(*) as nb_livre
+FROM genre ge
+FULL join livre USING(genre_id)
+FULL JOIN auteur USING(auteur_id)
+WHERE prenom ||' '|| nom = 'J.K. Rowling'
+GROUP BY ge.nom_genre
+ORDER BY nb_livre desc
 
--- Quels auteurs ont écrit au moins deux livres dans le genre Fiction ?
+-- Quels auteurs ont écrit plus d'un livre sur la "Fiction"? : 2 requetes possibles
+--1
+SELECT au.prenom ||' '|| au.nom AS auteur_identite, COUNT(*) 
+FROM (
+	SELECT ge.nom_genre, l.titre, l.auteur_id
+	FROM genre ge 
+	FULL JOIN livre l USING(genre_id)	
+  	WHERE ge.nom_genre ='Fiction'
+	) as livre_fiction
+FULL JOIN auteur au
+ON livre_fiction.auteur_id = au.auteur_id
+GROUP BY auteur_identite
+HAVING count(*)  > 1
+
+--2
 SELECT 
     auteur.prenom || ' ' || auteur.nom AS auteur_identite,
     COUNT(livre.livre_id) 
@@ -160,7 +184,7 @@ JOIN livre ON auteur.auteur_id = livre.auteur_id
 JOIN genre ON livre.genre_id = genre.genre_id
 WHERE genre.nom_genre = 'Fiction'
 GROUP BY auteur.prenom, auteur.nom
-HAVING COUNT(livre.livre_id) >= 2;
+HAVING COUNT(livre.livre_id) > 1;
 
 -- Combien d'auteurs différents ont écrit des livres pour chaque genre ?
 SELECT genre.nom_genre, COUNT(DISTINCT livre.auteur_id) AS nombre_auteurs
@@ -169,13 +193,13 @@ JOIN livre ON genre.genre_id = livre.genre_id
 GROUP BY genre.nom_genre
 ORDER BY nombre_auteurs DESC, genre.nom_genre;
 
--- Quels auteurs ont écrit des livres dans plus de trois genres différents ?
+-- Quels auteurs ont écrit des livres dans au moins 2 genres différents ?
 SELECT auteur.prenom || ' ' || auteur.nom AS auteur_identite, 
 		COUNT(DISTINCT livre.genre_id) AS nombre_genres
 FROM auteur 
 JOIN livre ON auteur.auteur_id = livre.auteur_id
 GROUP BY auteur.auteur_id, auteur_identite
-HAVING COUNT(DISTINCT livre.genre_id) > 3
+HAVING COUNT(DISTINCT livre.genre_id) > 1
 ORDER BY nombre_genres DESC, auteur_identite;
 
 -- Quels sont les genres les plus populaires (en termes de nombre de livres) du 19e siècle ?
@@ -196,15 +220,6 @@ WHERE (livre.genre_id, livre.date_publication) IN
      GROUP BY genre_id)
 ORDER BY genre.nom_genre;
 
--- Quel est le genre le plus courant parmi les livres écrits par "J.K. Rowling"?
-SELECT genre.nom_genre, COUNT(livre.livre_id) AS nombre_de_livres
-FROM auteur
-JOIN livre ON auteur.auteur_id = livre.auteur_id
-JOIN genre ON livre.genre_id = genre.genre_id
-WHERE auteur.prenom = 'J.K.' AND auteur.nom = 'Rowling'
-GROUP BY genre.nom_genre
-ORDER BY nombre_de_livres DESC
-
 -- Quels auteurs ont écrit plus d'un livre sur la "Fiction"?
 SELECT auteur.nom, genre.nom_genre, 
 	COUNT(livre.livre_id) AS nombre_de_livres
@@ -216,44 +231,45 @@ GROUP BY auteur.nom, genre.nom_genre
 having COUNT(livre.livre_id) > 1;
 
 -- Listez les auteurs qui ont écrit à la fois de la "Fiction" et de la "Science-fiction".
-SELECT auteur.nom, genre.nom_genre 
+
+select auteur.prenom || ' ' || auteur.nom AS auteur_identite
 FROM auteur
-JOIN livre ON auteur.auteur_id = livre.auteur_id
-JOIN genre ON livre.genre_id = genre.genre_id
-WHERE genre.nom_genre = 'Fiction' and genre.nom_genre = 'Science-fiction'
-GROUP BY auteur.nom, genre.nom_genre
+where auteur.auteur_id = (
+	select  l.auteur_id
+	from genre ge 
+	FULL join livre l using(genre_id)	
+	WHERE ge.nom_genre = 'Fiction'
+	INTERSECT
+	select  l.auteur_id
+	from genre ge 
+	FULL join livre l using(genre_id)	
+	WHERE ge.nom_genre = 'Science-fiction'
+)
 
--- Listez tous les livres qui ont été publiés la même année que "The Great Gatsby".
-SELECT titre
-FROM Livre
-WHERE date_publication IN (
-    SELECT date_publication
-    FROM Livre
-    WHERE titre = 'The Great Gatsby'
-);
-
--- Listez tous les auteurs qui n'ont pas encore écrit de livres (basé sur les données actuelles).
-select *
-FROM auteur
-full JOIN livre on auteur.auteur_id = livre.auteur_id
-WHERE auteur.auteur_id ISNULL
-
--- Quel est le nombre moyen de livres par auteur ?
-select AVG(number_book)
-FROM (
-  SELECT auteur_id, COUNT(*) as number_book
-  from livre
-  GROUP by auteur_id);
-
--- Quels sont les trois genres les moins courants dans la base de données?
-SELECT genre.nom_genre, COUNT(livre.livre_id) AS nombre_de_livres
-FROM Genre genre
-LEFT JOIN Livre livre ON genre.genre_id = livre.genre_id
-GROUP BY genre.nom_genre
-ORDER BY nombre_de_livres ASC
-LIMIT 3;
+--	Listez tous les livres qui ont été publiés après "The Great Gatsby".
+select titre
+from livre
+where date_publication > (
+	select date_publication
+	from livre
+	WHERE titre = 'The Great Gatsby'
+)
  
- -- Si un auteur a écrit le même nombre de livres dans plusieurs genres, 
- -- listez tous ces genres.
+-- Quel est le nombre moyen de livres par auteur ?
+select ROUND(AVg(nombre_livre), 2) as nombre_moyen_livre
+from (
+  select auteur_id, COUNT(*) nombre_livre	
+  from auteur
+  full JOIN livre USING(auteur_id)
+  GROUP by auteur_id) 
 
+-- Quels sont les trois genres les moins courants dans la base de données ?
+
+SELECT nom_genre, COUNT(*) nombre_livre
+from genre
+FULL join livre using(genre_id)
+GROUP by nom_genre
+ORDER by nombre_livre 
+LIMIT 3
+ 
 
