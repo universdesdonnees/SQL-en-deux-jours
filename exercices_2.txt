@@ -6,7 +6,7 @@
 •	Identifiez les employés qui ont le même salaire que 'Pam Beasley'.
 •	Classifiez les salaires des employés en différentes catégories en utilisant la clause CASE :'Bas' pour les salaires inférieurs à 40 000, 'Moyen' pour les salaires entre 40 000 et 55 000 et 'Haut' pour les salaires supérieurs à 55 000
 •	En utilisant les tables EmployeeDemographics et EmployeeSalary, déterminez combien d'hommes et de femmes tombent dans chaque classification de salaire ('Bas', 'Moyen', 'Haut'). 
-•	Identifiez les employés dont le titre de travail est "Salesman" et qui ont plus de 30 ans. 
+•	Identifiez les employés dont le titre de travail est "Salesman" et qui ont plus de 30 ans. Utilisez un CASE pour classifier les employés sur le jobtitle.
 •	Trouvez le salaire moyen des hommes et des femmes.
 
 -- A partir des tables livre, auteur, genre 
