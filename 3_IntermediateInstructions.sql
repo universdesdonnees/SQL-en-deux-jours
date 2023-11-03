@@ -18,13 +18,13 @@ FROM genre;
 -- Cette commande retourne les titres des livres écrits par l'auteur avec l'id 1 qui sont également de genre_id 2.
 SELECT titre FROM livre WHERE auteur_id = 1
 INTERSECT
-SELECT titre FROM livre WHERE genre_id = 2;
+SELECT titre FROM livre WHERE genre_id = 1;
 
 -- 4. SQL EXCEPT 
--- Cette commande retourne les titres des livres écrits par l'auteur avec l'id 1 mais qui ne sont pas du genre_id 2.
-SELECT titre FROM livre WHERE auteur_id = 1
+-- Cette commande retourne les titres des livres avec le genre_id = 1 mais non écrits par l'auteur avec l'id 1 
+SELECT titre FROM livre WHERE genre_id = 1
 EXCEPT
-SELECT titre FROM livre WHERE genre_id = 2;
+SELECT titre FROM livre WHERE auteur_id = 1 ;
 
 
 -- 5. SQL CASE
@@ -42,7 +42,7 @@ FROM livre;
 -- 1. Jointure SQL
 SELECT * 
 FROM livre 
-FULL JOIN auteur ON livre.auteur_id = auteur.auteur_id;
+full JOIN auteur ON livre.auteur_id = auteur.auteur_id;
 
 -- 2. SQL INNER JOIN
 SELECT * 
@@ -62,19 +62,14 @@ LEFT JOIN auteur ON livre.auteur_id = auteur.auteur_id;
 -- 5. SQL RIGHT JOIN
 SELECT * 
 FROM auteur 
-FULL JOIN livre ON auteur.auteur_id = livre.auteur_id;
+RIGHT JOIN livre ON auteur.auteur_id = livre.auteur_id;
 
 -- 6. SQL FULL JOIN 
 SELECT * 
 FROM livre 
 FULL JOIN genre ON livre.genre_id = genre.genre_id;
 
--- 7. SQL SELF JOIN
-SELECT A.titre AS Livre1, B.titre AS Livre2 
-FROM livre A, livre B 
-WHERE A.auteur_id = B.auteur_id AND A.livre_id <> B.livre_id;
-
--- 8. SQL Sous-requête
+-- 7. SQL Sous-requête
 SELECT titre 
 FROM livre 
 WHERE auteur_id IN (
@@ -82,7 +77,7 @@ WHERE auteur_id IN (
   FROM auteur 
   WHERE nom = 'Martin');
 
--- 9. SQL EXISTS
+-- 8. SQL EXISTS
 SELECT titre 
 FROM livre 
 WHERE EXISTS (
@@ -90,7 +85,7 @@ WHERE EXISTS (
   FROM genre 
   WHERE genre.genre_id = livre.genre_id AND nom_genre = 'Fiction');
 
--- 10. SQL ALL
+-- 9. SQL ALL
 SELECT titre 
 FROM livre 
 WHERE date_publication > ALL (
@@ -98,7 +93,7 @@ WHERE date_publication > ALL (
   FROM livre 
   WHERE genre_id = 2);
 
--- 11. SQL ANY / SOME
+-- 10. SQL ANY / SOME
 SELECT titre 
 FROM livre 
 WHERE genre_id = ANY (
@@ -106,7 +101,7 @@ WHERE genre_id = ANY (
   FROM genre 
   WHERE nom_genre LIKE '%Fiction%');
 
--- 12 SQL VIEW
+-- 11 SQL VIEW
 CREATE VIEW vue_livres_auteurs_genre AS
 SELECT 
     l.titre AS Titre_Livre,
@@ -119,4 +114,3 @@ FULL JOIN
     Auteur a ON l.auteur_id = a.auteur_id
 FULL JOIN 
     Genre g ON l.genre_id = g.genre_id;
-
