@@ -220,16 +220,6 @@ WHERE (livre.genre_id, livre.date_publication) IN
      GROUP BY genre_id)
 ORDER BY genre.nom_genre;
 
--- Quels auteurs ont écrit plus d'un livre sur la "Fiction"?
-SELECT auteur.nom, genre.nom_genre, 
-	COUNT(livre.livre_id) AS nombre_de_livres
-FROM auteur
-JOIN livre ON auteur.auteur_id = livre.auteur_id
-JOIN genre ON livre.genre_id = genre.genre_id
-WHERE genre.nom_genre = 'Fiction'
-GROUP BY auteur.nom, genre.nom_genre
-having COUNT(livre.livre_id) > 1;
-
 -- Listez les auteurs qui ont écrit à la fois de la "Fiction" et de la "Science-fiction".
 
 select auteur.prenom || ' ' || auteur.nom AS auteur_identite
