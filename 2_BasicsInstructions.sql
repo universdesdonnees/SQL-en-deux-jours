@@ -41,13 +41,13 @@ WHERE date_naissance BETWEEN '1900-01-01' AND '2000-12-31';
 -- Cette commande récupère les livres dont le titre se termine par 'Game'.
 SELECT * 
 FROM livre 
-WHERE titre LIKE '%Game';
+WHERE titre LIKE '%World';
 
 -- 8.1 SQL LIKE
--- Cette commande récupère les livres dont le titre a un caractère avant 'Game' suivi de n'importe quel caractère.
+-- Cette commande récupère les livres dont le titre a un caractère et un espace avant 'Farewell' suivi de n'importe quel caractère.
 SELECT * 
 FROM livre 
-WHERE titre LIKE '_Game%';
+WHERE titre LIKE '_ Farewell%';
 
 -- 8.2 SQL LIKE
 -- Cette commande récupère les livres dont le titre contient le mot 'Game'.
@@ -59,7 +59,7 @@ WHERE titre LIKE '%Game%';
 -- Cette commande récupère les livres qui n'ont pas de date de publication.
 SELECT * 
 FROM livre 
-WHERE date_publication IS NULL;
+WHERE date_publication ISNULL;
 
 -- 10. SQL GROUP BY
 -- Cette commande compte le nombre de livres par genre et les regroupe par 'genre_id'.
@@ -68,7 +68,7 @@ FROM livre
 GROUP BY genre_id;
 
 -- 11. SQL HAVING
--- Après regroupement par 'genre_id', cette commande ne conserve que les genres ayant plus de 5 livres.
+-- Après regroupement par 'genre_id', grace a HAVING on ne conserve que les genres ayant plus de 5 livres.
 SELECT genre_id, COUNT(*)
 FROM livre 
 GROUP BY genre_id 
@@ -91,5 +91,3 @@ LIMIT 5;
 UPDATE Livre
 SET titre = 'Nineteen Eighty-Four'
 WHERE titre = '1984';
-
-
