@@ -42,7 +42,7 @@ FROM livre;
 -- 1. Jointure SQL
 SELECT * 
 FROM livre 
-JOIN auteur ON livre.auteur_id = auteur.auteur_id;
+FULL JOIN auteur ON livre.auteur_id = auteur.auteur_id;
 
 -- 2. SQL INNER JOIN
 SELECT * 
@@ -62,7 +62,7 @@ LEFT JOIN auteur ON livre.auteur_id = auteur.auteur_id;
 -- 5. SQL RIGHT JOIN
 SELECT * 
 FROM auteur 
-RIGHT JOIN livre ON auteur.auteur_id = livre.auteur_id;
+FULL JOIN livre ON auteur.auteur_id = livre.auteur_id;
 
 -- 6. SQL FULL JOIN 
 SELECT * 
@@ -115,8 +115,8 @@ SELECT
     g.nom_genre AS Genre_Livre
 FROM 
     Livre l
-JOIN 
+FULL JOIN 
     Auteur a ON l.auteur_id = a.auteur_id
-JOIN 
+FULL JOIN 
     Genre g ON l.genre_id = g.genre_id;
 
