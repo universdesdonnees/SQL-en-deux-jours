@@ -105,6 +105,8 @@ INSERT INTO Livre VALUES (27, 'Les Misérables', '1862-01-14', 1, 18);
 INSERT INTO Livre VALUES (28, 'The Raven', '1845-01-29', 15, 19);              
 INSERT INTO Livre VALUES (29, 'One Hundred Years of Solitude', '1967-06-05', 1, 20); 
 INSERT INTO Livre VALUES (30, 'Introduction accélérée au LANGAGE R pour la data science', '2023-07-25', 21, 21); 
+INSERT INTO Livre VALUES (31, 'Animal Farm', '1945-08-17', 1, 3); 
+
 
 
 --
