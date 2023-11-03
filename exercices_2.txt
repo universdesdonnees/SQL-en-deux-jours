@@ -14,14 +14,12 @@
 •	Quels sont les genres les plus populaires (en termes de nombre de livres) ?  Classez-les par ordre décroissant.
 •	Quel est le genre le plus courant parmi les livres écrits par "J.K. Rowling"?
 •	Quels auteurs ont écrit plus d'un livre sur la "Fiction"?
+•	Combien d'auteurs différents ont écrit des livres pour chaque genre ?
+•	Quels auteurs ont écrit des livres dans au moins 2 genres différents ?
+•	Quels sont les genres les plus populaires (en termes de nombre de livres) du 19e siècle ?
+•	Quel est le livre le plus ancien pour chaque genre ?
 •	Listez les auteurs qui ont écrit à la fois de la "Fiction" et de la "Science-fiction".
-•	Listez tous les livres qui ont été publiés la même année que "The Great Gatsby".
-•	Listez tous les auteurs qui n'ont pas encore écrit de livres (basé sur les données actuelles).
+•	Listez tous les livres qui ont été publiés après que "The Great Gatsby".
 •	Quel est le nombre moyen de livres par auteur ?
 •	Quels sont les trois genres les moins courants dans la base de données?
-•	Pour chaque auteur, trouvez le genre dans lequel ils ont écrit le plus de livres. 
-• Si un auteur a écrit le même nombre de livres dans plusieurs genres, listez tous ces genres.
--- La CTE GenreCount compte le nombre de livres écrits par chaque auteur pour chaque genre.
--- La CTE MaxGenreCount identifie le nombre maximum de livres écrits par chaque auteur dans un genre.
--- La requête principale joint les deux CTE pour lister les genres où chaque auteur a écrit le plus de livres.
 
