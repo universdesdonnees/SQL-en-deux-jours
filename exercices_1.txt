@@ -1,4 +1,4 @@
---- Exercices bibliothèque 
+-- A partir des tables livre, auteur, genre 
 •	Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
 •	Trouvez le livre le plus ancien de la base de données.
 •	Trouvez tous les livres qui contiennent le mot "King" dans le titre.
