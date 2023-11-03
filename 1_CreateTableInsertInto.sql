@@ -48,6 +48,7 @@ INSERT INTO Genre VALUES (17, 'Manga');
 INSERT INTO Genre VALUES (18, 'Satire');
 INSERT INTO Genre VALUES (19, 'Classique');
 INSERT INTO Genre VALUES (20, 'Anthologie');
+INSERT INTO Genre VALUES (21, 'Data Science');
 
 -- Insertion de données pour la table Auteur
 INSERT INTO Auteur VALUES (1, 'Martin', 'George', '1948-09-20');
@@ -70,6 +71,8 @@ INSERT INTO Auteur VALUES (17, 'Huxley', 'Aldous', '1894-07-26');
 INSERT INTO Auteur VALUES (18, 'Hugo', 'Victor', '1802-02-26');
 INSERT INTO Auteur VALUES (19, 'Poe', 'Edgar Allan', '1809-01-19');
 INSERT INTO Auteur VALUES (20, 'Marquez', 'Gabriel Garcia', '1927-03-06');
+INSERT INTO Auteur VALUES (21, 'Cherifa-Luron', 'Ményssa', '2000-03-06');
+
 
 -- Insertion de données pour la table Livre
 INSERT INTO Livre VALUES (1, 'Game of Thrones', '1996-08-01', 1, 1);
@@ -101,6 +104,7 @@ INSERT INTO Livre VALUES (26, 'The Doors of Perception', '1954-11-10', 11, 17);
 INSERT INTO Livre VALUES (27, 'Les Misérables', '1862-01-14', 1, 18);             
 INSERT INTO Livre VALUES (28, 'The Raven', '1845-01-29', 15, 19);              
 INSERT INTO Livre VALUES (29, 'One Hundred Years of Solitude', '1967-06-05', 1, 20); 
+INSERT INTO Livre VALUES (30, 'Introduction accélérée au LANGAGE R pour la data science', '2023-07-25', 21, 21); 
 
 
 --
