@@ -10,7 +10,7 @@ SELECT employeesalary.jobtitle, employeedemographics.age, employeedemographics.f
 FROM employeesalary
 INNER JOIN employeedemographics
 ON employeesalary.employeeid = employeedemographics.employeeid
-WHERE employeedemographics.age > 30 and employeesalary.jobtitle = 'Salesman'
+WHERE employeedemographics.age > 30 and employeesalary.jobtitle = 'Salesman';
 	
  -- Identique à la requete précédente, utilisation des alias 'AS'
 	
@@ -32,17 +32,32 @@ WHERE salary > (
   FROM employeesalary
 ) AND d.age < 32;
 
--- Listez tous les employés qui sont soit "Salesman", soit "Accountant"
--- lastname, jobtitle 
+-- Listez tous les employés qui sont soit "Salesman", soit "Accountant" 
+-- mais pas les deux
 
-select d.lastname, s.jobtitle
-from employeedemographics as d 
-INNER join employeesalary as s
+-- 1
+select d.lastname
+from employeedemographics d 
+left join employeesalary s
 on d.employeeid = s.employeeid
-where s.jobtitle = 'Salesman' OR s.jobtitle = 'Accountant';
+Where s.jobtitle IN ('Salesman', 'Accountant')
+EXCEPT
+select d.lastname
+from employeedemographics d 
+left join employeesalary s
+on d.employeeid = s.employeeid
+Where s.jobtitle =  'Salesman' AND s.jobtitle =  'Accountant'
 
--- •	Listez les employés qui n'ont pas le titre "HR" et qui ont moins de 35 ans.
--- jobtitle
+-- 2
+SELECT d.lastname
+FROM employeedemographics d 
+JOIN employeesalary s ON d.employeeid = s.employeeid
+WHERE s.jobtitle IN ('Salesman', 'Accountant')
+GROUP BY d.lastname
+HAVING COUNT(DISTINCT s.jobtitle) = 1;
+
+
+-- Listez les employés qui n'ont pas le titre "HR" et qui ont moins de 35 ans.
 
 Select d.lastname, s.jobtitle
 from employeedemographics as d
@@ -50,7 +65,7 @@ INNER join employeesalary as s
 on d.employeeid = s.employeeid
 WHERE s.jobtitle != 'HR' and d.age < 35;
 
--- Identifiez les employés qui ont le même salaire que 'Pam Beasley'. 3 requetes possibles 
+-- Identifiez les employés qui ont le même salaire que 'Pam Beasley'. 2 requetes possibles 
 -- 1 
 SELECT d.lastname, d.firstname, s.salary
 from employeedemographics as d 
@@ -75,18 +90,8 @@ Where s.salary = (
   INNER JOIN employeedemographics as de 
   on se.employeeid = de.employeeid
   WHERE lastname = 'Beasley'
-  	);	
--- 3
- select ge.lastname, ge.firstname, ge.salary
- from (
-   SELECT d.employeeid, d.lastname, d.firstname, s.salary
-	from employeedemographics as d 
-	INNER JOIN employeesalary as s
-	on d.employeeid = s.employeeid
- 	WHERE lastname = 'Beasley') as ge
- INNER JOIN employeesalary as s 
- On ge.employeeid = s.employeeid
- WHERE ge.salary = s.salary
+  	) AND 
+lastname != 'Beasley';
    
  -- Classifiez les salaires des employés en différentes catégories
  -- en utilisant la clause CASE :'Bas' pour les salaires inférieurs à 40 000,
