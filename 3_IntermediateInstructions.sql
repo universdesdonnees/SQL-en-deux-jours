@@ -1,25 +1,4 @@
--- 1. SQL ON DUPLICATE KEY 
--- Insère un nouveau livre ou met à jour le titre si le 'livre_id' existe déjà.
-INSERT INTO livre (livre_id, titre) 
-VALUES (1, 'Nouveau Livre')
-ON CONFLICT (livre_id)
-DO UPDATE SET titre = 'Nouveau Livre';
-
--- 2. SQL MERGE 
--- Si le 'livre_id' de la source correspond à celui de la cible, 
--- il met à jour le titre, sinon, il insère un nouveau titre.
-MERGE INTO livre AS target
-USING (
-  SELECT livre_id, titre 
-  FROM livre 
-  WHERE livre_id = 1) AS source
-ON (target.livre_id = source.livre_id)
-WHEN MATCHED THEN 
-   UPDATE SET titre = source.titre
-WHEN NOT MATCHED THEN 
-  INSERT (titre) VALUES (source.titre);
-
--- 3. SQL UNION
+-- 1. SQL UNION
 -- Cette commande combine les résultats des titres des livres et des noms des genres en une seule liste.
 SELECT titre 
 FROM livre
@@ -27,7 +6,7 @@ UNION
 SELECT nom_genre AS titre 
 FROM genre;
 
--- 4. SQL UNION ALL
+-- 2. SQL UNION ALL
 -- Semblable à UNION, mais conserve les doublons.
 SELECT titre 
 FROM livre
@@ -35,20 +14,20 @@ UNION ALL
 SELECT nom_genre AS titre 
 FROM genre;
 
--- 5. SQL INTERSECT 
+-- 3. SQL INTERSECT 
 -- Cette commande retourne les titres des livres écrits par l'auteur avec l'id 1 qui sont également de genre_id 2.
 SELECT titre FROM livre WHERE auteur_id = 1
 INTERSECT
 SELECT titre FROM livre WHERE genre_id = 2;
 
--- 18. SQL EXCEPT 
+-- 4. SQL EXCEPT 
 -- Cette commande retourne les titres des livres écrits par l'auteur avec l'id 1 mais qui ne sont pas du genre_id 2.
 SELECT titre FROM livre WHERE auteur_id = 1
 EXCEPT
 SELECT titre FROM livre WHERE genre_id = 2;
 
 
--- 14. SQL CASE
+-- 5. SQL CASE
 -- Cette commande ajoute une nouvelle colonne 'Epoque' basée sur la date de publication des livres.
 SELECT titre, CASE 
     WHEN date_publication < '2000-01-01' THEN '20ème siècle'
