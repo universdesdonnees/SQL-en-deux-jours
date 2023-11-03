@@ -20,6 +20,11 @@ SELECT titre
 FROM livre
 WHERE titre LIKE '%King%';
 
+-- Combien de livres ont été publiés après l'an 2000 ?
+SELECT titre
+FROM livre
+WHERE date_publication > '1999-12-31';
+
 -- Nommez tous les auteurs nés avant 1900.
 SELECT prenom, nom, date_naissance
 FROM auteur
@@ -34,16 +39,26 @@ FROM livre
 GROUP by year
 ORDER by year ;
 
--- Trouvez tous les livres qui n'ont pas été attribués à un genre.
-SELECT * 
-FROM livre
-WHERE genre_id is NULL;
-
 -- Combien d'auteurs ont leur anniversaire en janvier?
-SELECT extract(MONTH from date_naissance) as month, count(*)
+
+-- 1
+SELECT extract(MONTH from date_naissance) as mois, count(*)
 FROM auteur
-GROUP BY month
+GROUP BY mois
 HAVING extract(month from date_naissance) = 1;
+
+--2
+select count(*) as nombre_auteur
+from auteur
+where EXTRACT(MONTh from date_naissance)  = 1;
+
+-- 3
+select EXTRACT(MONTh from date_naissance) as mois,
+	count(*) as nombre_auteur
+from auteur
+group by mois
+Having EXTRACT(MONTh from date_naissance) = '01'
+
 
 -- Listez tous les auteurs dont les noms commencent par la lettre 'M'.
 SELECT prenom, nom
@@ -55,6 +70,3 @@ select EXTRACT(YEAR FROM date_publication) AS year, COUNT(*)
 FROM livre
 GROUP by year
 HAVING COUNT(*) > 2
-
-
-
