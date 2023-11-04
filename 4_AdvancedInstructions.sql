@@ -4,7 +4,7 @@
 SELECT ED.EmployeeID, ED.FirstName, ED.LastName, ES.JobTitle, ES.Salary,
   RANK() OVER (ORDER BY ES.Salary DESC) AS SalaryRank
 FROM  EmployeeDemographics ED
-FULL JOIN  EmployeeSalary ES ON ED.EmployeeID = ES.EmployeeID;
+FULL JOIN  EmployeeSalary ES Using(EmployeeID)
 
 -- SUM(): Calcule la somme totale des salaires pour chaque titre de poste,
 -- montrant ainsi la masse salariale allouée à chaque poste.
@@ -25,25 +25,17 @@ FROM EmployeeSalary;
 -- salaire d'un employé avec celui qui le précède immédiatement.
 SELECT  ED.EmployeeID, ED.FirstName, ED.LastName, ES.JobTitle, ES.Salary,
   LAG(ES.Salary) OVER (ORDER BY ES.Salary DESC) AS PreviousSalary
-FROM 
-  EmployeeDemographics ED
-JOIN 
-  EmployeeSalary ES ON ED.EmployeeID = ES.EmployeeID;
+FROM EmployeeDemographics ED
+FULL JOIN EmployeeSalary ES Using(EmployeeID)
 
 -- LEAD(): Indique le salaire qui suit directement celui 
 -- de chaque employé dans la liste ordonnée des salaires décroissants, 
 -- utile pour la comparaison entre un employé et celui qui le suit.
 SELECT 
-  ED.EmployeeID,
-  ED.FirstName,
-  ED.LastName,
-  ES.JobTitle,
-  ES.Salary,
+  ED.EmployeeID, ED.FirstName, ED.LastName, ES.JobTitle,  ES.Salary, 
   LEAD(ES.Salary) OVER (ORDER BY ES.Salary DESC) AS NextSalary
-FROM 
-  EmployeeDemographics ED
-JOIN 
-  EmployeeSalary ES ON ED.EmployeeID = ES.EmployeeID;
+FROM EmployeeDemographics ED
+FULL JOIN EmployeeSalary ES Using(EmployeeID)
 
 -- FIRST_VALUE(): Montre le salaire le plus élevé parmi tous les employés, 
 -- en donnant un point de référence pour le salaire maximal dans l'entreprise.
