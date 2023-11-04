@@ -1,46 +1,29 @@
 -- RANK(): Attribue un rang aux employés basé sur leur salaire dans 
 -- un ordre décroissant, où des salaires égaux reçoivent le même rang
 -- et les rangs suivants sont ajustés en conséquence (comme 1, 2, 2, 4...).
-SELECT 
-  ED.EmployeeID,
-  ED.FirstName,
-  ED.LastName,
-  ES.JobTitle,
-  ES.Salary,
+SELECT ED.EmployeeID, ED.FirstName, ED.LastName, ES.JobTitle, ES.Salary,
   RANK() OVER (ORDER BY ES.Salary DESC) AS SalaryRank
-FROM 
-  EmployeeDemographics ED
-JOIN 
-  EmployeeSalary ES ON ED.EmployeeID = ES.EmployeeID;
+FROM  EmployeeDemographics ED
+FULL JOIN  EmployeeSalary ES ON ED.EmployeeID = ES.EmployeeID;
 
--- SUM(): Calcule la somme totale des salaires pour chaque titre de poste, montrant ainsi la masse salariale allouée à chaque poste.
-SELECT 
-  EmployeeID,
-  JobTitle,
-  Salary,
-  SUM(Salary) OVER (PARTITION BY JobTitle) AS TotalSalaryByJobTitle
-FROM 
-  EmployeeSalary;
+-- SUM(): Calcule la somme totale des salaires pour chaque titre de poste,
+-- montrant ainsi la masse salariale allouée à chaque poste.
+SELECT jobtitle, TotalSalaryByJobTitle
+FROM (SELECT JobTitle,
+    SUM(Salary) OVER (PARTITION BY JobTitle) AS TotalSalaryByJobTitle
+	  FROM EmployeeSalary)
+GROUP BY jobtitle, TotalSalaryByJobTitle
 
 -- AVG(): Détermine la moyenne des salaires par titre de poste, permettant
 -- d'évaluer la rémunération moyenne pour chaque catégorie d'emploi.
-SELECT 
-  EmployeeID,
-  JobTitle,
-  Salary,
+SELECT  EmployeeID, JobTitle,  Salary,
   AVG(Salary) OVER (PARTITION BY JobTitle) AS AverageSalaryByJobTitle
-FROM 
-  EmployeeSalary;
+FROM EmployeeSalary;
 
 -- LAG(): Affiche le salaire précédent par rapport à chaque employé lorsque les
 -- salaires sont ordonnés du plus élevé au plus bas, permettant de comparer le 
 -- salaire d'un employé avec celui qui le précède immédiatement.
-SELECT 
-  ED.EmployeeID,
-  ED.FirstName,
-  ED.LastName,
-  ES.JobTitle,
-  ES.Salary,
+SELECT  ED.EmployeeID, ED.FirstName, ED.LastName, ES.JobTitle, ES.Salary,
   LAG(ES.Salary) OVER (ORDER BY ES.Salary DESC) AS PreviousSalary
 FROM 
   EmployeeDemographics ED
