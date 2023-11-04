@@ -39,43 +39,26 @@ FULL JOIN EmployeeSalary ES Using(EmployeeID)
 
 -- FIRST_VALUE(): Montre le salaire le plus élevé parmi tous les employés, 
 -- en donnant un point de référence pour le salaire maximal dans l'entreprise.
-SELECT 
-  ED.EmployeeID,
-  ED.FirstName,
-  ED.LastName,
-  ES.Salary,
+SELECT   ED.EmployeeID,  ED.FirstName,  ED.LastName,  ES.Salary,
   FIRST_VALUE(ES.Salary) OVER (ORDER BY ES.Salary DESC) AS HighestSalary
 FROM 
   EmployeeDemographics ED
-JOIN 
-  EmployeeSalary ES ON ED.EmployeeID = ES.EmployeeID;
+FULL JOIN EmployeeSalary ES Using(EmployeeID)
 
 -- LAST_VALUE(): Donne le salaire le plus bas dans l'ensemble ordonné des salaires,
 -- tout en nécessitant une spécification de portée pour fonctionner correctement sur l'ensemble des données.
-SELECT 
-  ED.EmployeeID,
-  ED.FirstName,
-  ED.LastName,
-  ES.Salary,
-  LAST_VALUE(ES.Salary) OVER (
+SELECT   ED.EmployeeID,  ED.FirstName,  ED.LastName,  ES.Salary,
+	LAST_VALUE(ES.Salary) OVER (
     ORDER BY ES.Salary
     RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING
   ) AS LowestSalary
-FROM 
-  EmployeeDemographics ED
-JOIN 
-  EmployeeSalary ES ON ED.EmployeeID = ES.EmployeeID;
+FROM EmployeeDemographics ED
+FULL JOIN EmployeeSalary ES Using(EmployeeID)
+	
 -- NTILE(): Répartit les employés en quatre groupes de salaires, 
 -- offrant une manière de catégoriser les employés en quartiles basés sur leur rémunération.
-SELECT 
-  ED.EmployeeID,
-  ED.FirstName,
-  ED.LastName,
-  ES.JobTitle,
-  ES.Salary,
+SELECT   ED.EmployeeID,  ED.FirstName,  ED.LastName,  ES.JobTitle,  ES.Salary,
   NTILE(4) OVER (ORDER BY ES.Salary DESC) AS SalaryQuartile
-FROM 
-  EmployeeDemographics ED
-JOIN 
-  EmployeeSalary ES ON ED.EmployeeID = ES.EmployeeID;
+FROM EmployeeDemographics ED
+FULL JOIN EmployeeSalary ES Using(EmployeeID)
 
