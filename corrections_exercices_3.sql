@@ -60,6 +60,26 @@ WHERE nb_livre > (
   SELECT AVG(nb_livre) 
   FROM livre_par_auteur) 
 
+-- 4
+WITH SalaireMoyenParPoste AS (
+  SELECT JobTitle, AVG(Salary) AS MoyenneSalaire
+  FROM EmployeeSalary
+  GROUP BY JobTitle
+)
+SELECT JobTitle, MoyenneSalaire
+FROM SalaireMoyenParPoste
+WHERE MoyenneSalaire > 50000;
+
+-- 5 
+WITH AuteursApres2000 AS (
+  SELECT DISTINCT auteur_id
+  FROM Livre
+  WHERE date_publication > '2000-01-01'
+)
+SELECT a.nom, a.prenom
+FROM Auteur AS a
+LEFT JOIN AuteursApres2000 AS ap2000 ON a.auteur_id = ap2000.auteur_id
+WHERE ap2000.auteur_id IS NULL;
 
 
 -- 
