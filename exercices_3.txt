@@ -1,46 +1,24 @@
--- CTE
+---
+--- Travailler ces requêtes avec des CTE
+---
 
-À l'aide d'une CTE, comptez le nombre de livres publiés chaque décennies. 
-Ensuite, dans la requête principale, sélectionnez seulement les décennies où plus de 10 livres ont été publiés.
-Aide : (annee / 10) * 10 AS decennie
+•	Comptez le nombre de livres publiés chaque décennie. Ensuite, dans la requête principale, sélectionnez seulement les décennies où plus de 10 livres ont été publiés. Aide : (annee / 10) * 10 AS decennie
+•	Comptez le nombre de livres écrits par chaque auteur. Dans votre requête principale, sélectionnez les auteurs qui ont écrit plus de 3 livres. 
+•	Calculez la moyenne du nombre de livres écrits par auteur. Dans la requête principale, listez tous les auteurs qui ont écrit plus que cette moyenne.
+•	Calculer le salaire moyen pour chaque poste. Dans la requête principale, listez tous les postes où le salaire moyen est supérieur à 50 000.
+•	Identifiez tous les auteurs qui ont publié des livres après 2000. Dans la requête principale, sélectionnez tous les auteurs qui ne figurent pas dans cette CTE, c'est-à-dire ceux qui n'ont pas publié de livre en 2000.
 
-Créez une CTE qui compte le nombre de livres écrits par chaque auteur. 
-Dans votre requête principale, sélectionnez les auteurs qui ont écrit plus de 3 livres.
+---
+---Travailler avec OVER()
+---
 
-Créez une CTE qui calcule la moyenne du nombre de livres écrits par auteur. 
-Dans la requête principale, listez tous les auteurs qui ont écrit plus que cette moyenne.
-
-Utilisez une CTE pour calculer le salaire moyen pour chaque poste.
-Dans la requête principale, listez tous les poste où le salaire moyen est supérieur à 50 000.
-
-À l'aide d'une CTE, identifiez tous les auteurs qui ont publié des livres après 2000. Dans la requête principale, 
-sélectionnez tous les auteurs qui ne figurent pas dans cette CTE, c'est-à-dire ceux qui n'ont pas publié de livre en 2000.
-
--- OVER PARTITION
-
-À partir de la table Livre, classez les livres par date de publication en utilisant la fonction ROW_NUMBER() avec OVER().
-
-Dans la table Livre, pour chaque genre, classez les livres par date de publication en utilisant la fonction RANK() avec OVER().
-
-À partir de la table EmployeeSalary, calculez le salaire cumulé 
-pour chaque employé, trié par EmployeeID, en utilisant la fonction SUM() avec OVER().
-
-Toujours dans la table EmployeeSalary, calculez la moyenne du salaire des 3 derniers employés 
-(y compris l'employé actuel) pour chaque entrée, en utilisant la fonction AVG() avec OVER().
-
-Pour la table Livre, pour chaque genre, trouvez le premier et le dernier livre 
-publié en utilisant les fonctions FIRST_VALUE() et LAST_VALUE() avec OVER().
-
-Dans la table EmployeeSalary, calculez la différence de salaire entre chaque employé et 
-l'employé précédent en utilisant les fonctions LAG() et LEAD() avec OVER().
-
-À partir de la table EmployeeSalary, calculez le pourcentage que représente le salaire de chaque employé par rapport au salaire
-total de tous les employés, en utilisant la fonction SUM() avec OVER().
-
-Sélectionnez le nom, le prénom, la date de naissance et le titre de chaque livre.
-Calculez pour chaque livre le nombre de livres que l'auteur avait déjà publiés avant ce livre. Nommez cette colonne nbr_livres_avant.
-Triez les résultats par date de publication.
-
-Créez une CTE qui calcule le nombre de livres publiés chaque année. 
-Dans la requête principale, utilisez la fonction LAG() 
-pour afficher le pourcentage de croissance des publications d'une année à l'autre.
+•	À partir de la table Livre, classez les livres par date de publication en utilisant la fonction ROW_NUMBER() avec OVER().
+•	Dans la table Livre, pour chaque genre, classez les livres par date de publication en utilisant la fonction RANK() avec OVER().
+•	À partir de la table EmployeeSalary, calculez le salaire cumulé 
+•	pour chaque employé, trié par EmployeeID, en utilisant la fonction SUM() avec OVER().
+•	Toujours dans la table EmployeeSalary, calculez la moyenne du salaire des 3 derniers employés (y compris l'employé actuel) pour chaque entrée, en utilisant la fonction AVG() avec OVER().
+•	Pour la table Livre, pour chaque genre, trouvez le premier et le dernier livre publié en utilisant les fonctions FIRST_VALUE() et LAST_VALUE() avec OVER().
+•	Dans la table EmployeeSalary, calculez la différence de salaire entre chaque employé et l'employé précédent en utilisant les fonctions LAG() et LEAD() avec OVER().
+•	À partir de la table EmployeeSalary, calculez le pourcentage que représente le salaire de chaque employé par rapport au salaire total de tous les employés, en utilisant la fonction SUM() avec OVER().
+•	Sélectionnez le nom, le prénom, la date de naissance et le titre de chaque livre. Calculez pour chaque livre le nombre de livres que l'auteur avait déjà publiés avant ce livre. Nommez cette colonne nbr_livres_avant. Triez les résultats par date de publication.
+•	Créez une CTE qui calcule le nombre de livres publiés chaque année. Dans la requête principale, utilisez la fonction LAG() pour afficher le pourcentage de croissance des publications d'une année à l'autre.
