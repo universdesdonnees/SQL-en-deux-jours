@@ -86,6 +86,52 @@ WHERE ap2000.auteur_id IS NULL;
 -- OVER()
 -- 
 
+SELECT livre_id, titre, date_publication,
+  ROW_NUMBER() OVER (ORDER BY date_publication) AS rang_publication
+FROM Livre;
+
+SELECT livre_id, titre, genre_id, date_publication,
+  RANK() OVER (PARTITION BY genre_id ORDER BY date_publication) AS rang_genre
+FROM Livre;
+
+SELECT EmployeeID, Salary,
+  SUM(Salary) OVER (ORDER BY EmployeeID) AS salaire_cumule
+FROM EmployeeSalary;
+
+SELECT EmployeeID, Salary,
+  AVG(Salary) OVER (ORDER BY EmployeeID ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moyenne_glissante
+FROM EmployeeSalary;
+
+SELECT livre_id, titre, genre_id, date_publication,
+  FIRST_VALUE(titre) OVER (PARTITION BY genre_id ORDER BY date_publication ASC RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS premier_livre,
+  LAST_VALUE(titre) OVER (PARTITION BY genre_id ORDER BY date_publication ASC RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS dernier_livre
+FROM Livre;
+
+SELECT EmployeeID, Salary,
+  Salary - LAG(Salary) OVER (ORDER BY EmployeeID) AS difference_avec_precedent,
+  LEAD(Salary) OVER (ORDER BY EmployeeID) - Salary AS difference_avec_suivant
+FROM EmployeeSalary;
+
+SELECT EmployeeID, Salary,
+  (Salary / SUM(Salary) OVER ()) * 100 AS pourcentage_du_total
+FROM EmployeeSalary;
+
+SELECT a.nom, a.prenom, a.date_naissance, l.titre, l.date_publication,
+  COUNT(*) OVER (PARTITION BY l.auteur_id ORDER BY l.date_publication ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) AS nbr_livres_avant
+FROM Livre l
+JOIN Auteur a ON l.auteur_id = a.auteur_id
+ORDER BY l.date_publication;
+
+WITH NombreLivresParAn AS (
+  SELECT EXTRACT(YEAR FROM date_publication) AS annee, COUNT(*) AS nombre_livres
+  FROM Livre
+  GROUP BY annee
+)
+SELECT annee, nombre_livres,
+  (nombre_livres - LAG(nombre_livres) OVER (ORDER BY annee)) / LAG(nombre_livres) OVER (ORDER BY annee) * 100 AS pourcentage_croissance
+FROM NombreLivresParAn;
+
+
 
 
 
