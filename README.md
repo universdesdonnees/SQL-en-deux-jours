@@ -4,7 +4,7 @@
 
 Chers lecteurs et apprenants de SQL,
 
-Je suis ravi de partager avec vous le repository GitHub que j'ai préparé spécialement pour accompagner mon livre "SQL en deux jours". Ce repository est le complément parfait pour ceux qui souhaitent non seulement lire sur le SQL, mais aussi le pratiquer de manière interactive.
+Je suis ravie de partager avec vous le repository GitHub que j'ai préparé spécialement pour accompagner mon livre "SQL en deux jours". Ce repository est le complément parfait pour ceux qui souhaitent non seulement lire sur le SQL, mais aussi le pratiquer de manière interactive.
 
 ## À propos de ce Repository
 
@@ -32,7 +32,7 @@ Dans ce repository, vous trouverez une multitude de ressources qui enrichiront v
 
 ## Votre Participation
 
-Je suis ouvert à vos retours et suggestions.
+Je suis ouverte à vos retours et suggestions.
 Si vous trouvez des erreurs ou si vous avez des propositions d'amélioration, n'hésitez pas à ouvrir une "issue" sur ce repository pour que je puisse continuer à l'améliorer.
 
 ## Besoin d'aide ?
