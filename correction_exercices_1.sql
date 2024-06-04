@@ -1,4 +1,5 @@
 -- Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
+-- conseil passer par les numéros de genre_id
 UPDATE livre
 SET genre_id = 7
 WHERE genre_id = 9 
