@@ -1,5 +1,5 @@
 -- A partir des tables livre, auteur, genre 
-•	Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
+•	Mettez à jour tous les livres du genre "Romantique" pour qu'ils soient du genre "Histoire".
 •	Trouvez le livre le plus ancien de la base de données.
 •	Trouvez tous les livres qui contiennent le mot "King" dans le titre.
 •	Combien de livres ont été publiés après l'an 2000 ?
