@@ -1,7 +1,7 @@
 -- Mettez à jour tous les livres du genre "Horreur" pour qu'ils soient du genre "Thriller".
-UPDATE genre
-SET nom_genre = 'Thriller'
-WHERE nom_genre = 'Horreur';
+UPDATE livre
+SET genre_id = 7
+WHERE genre_id = 9 
 
 -- Trouvez le livre le plus ancien de la base de données : 2 facons
 select titre, date_publication
